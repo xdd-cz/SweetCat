@@ -1,0 +1,154 @@
+.pfp{
+    object-fit: cover;
+    object-position: center;
+    
+}
+
+.title{
+    font-size: 80px;
+    font-weight: 700;
+    text-align: center;
+    padding: 40px 0px;
+    color: #fff;
+}
+
+h6{
+    font-size: 80px;
+    font-weight: 700;
+    text-align: center;
+    padding: 40px 0px;
+    color: #fff;
+}
+
+.p{
+    background: #00ff7740;
+    color:#fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.logo-img {
+    max-width: 50px;
+    width: 30vw;
+    height: 30vh;
+    min-width: 20px;
+    max-width: 50px;
+    max-height: 50px;
+    min-height: 20px;
+}
+
+.logo-title {
+    object-fit: none;
+    object-position: center;
+    width: 300px;
+    height: 50px;
+}
+
+.post-header{
+    display: flex;
+    margin: 20px 0px;
+}
+
+.post-header h3{
+    padding: 10px 10px;
+}
+
+.post-header img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.post-card .reaction{
+    display: flex;
+}
+
+.post-card .reaction button{
+    height: min-content;
+    border: none;
+    background: transparent;
+}
+
+.post-card .reaction p{
+    padding: 0px 30px 0px 5px;
+}
+
+.post-card h4{
+    font-size: 40px;
+    margin: 10px 0px;
+}
+
+
+.UserForm{
+    width: 100%;
+    background: url(./assets/img/Catpark.jpg);
+    background-position: bottom;
+    background-size: cover;
+    padding: 40px 0px;
+    
+}
+
+.userForm{
+    padding: 20px 15px;
+    color: #fff;
+}
+
+.UserForm .box{
+    backdrop-filter: blur(25px);
+    border-radius: 25px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    /* border: #fff solid 2px; */
+}
+
+.UserForm input{
+    margin-bottom: 25px;
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: #ffffff7d; 
+    border-radius: 8px;
+    border: none ;
+
+}
+
+.flex{
+    display: flex;
+}
+
+.UserForm button{
+    justify-content: center;
+}
+
+.UserForm .bigI{
+    display: flex;
+    flex-direction: row;
+}
+
+.UserForm .i{
+    width: 150px;
+    height: 200px;
+    object-fit: cover; 
+    border-radius: 20px;
+}
+
+.UserForm .i1{
+    position: relative;
+    rotate: -20deg;
+    left: 30px;
+    
+}
+
+.UserForm .i2{
+    position: relative;
+    rotate: 23deg;
+    left: 10px;
+    top: 60px;
+}
+
+.UserForm .i3{
+    position: relative;
+    rotate: -10deg;
+    left: -180px;
+    top: 160px;
+}
+
