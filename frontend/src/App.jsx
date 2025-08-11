@@ -3,7 +3,7 @@ import './App.css'
 import './color.scss'
 import NavBar from "./componets/navs/NavBar";
 import FeedState from "./context/FeedState";
-import Home from "./pages/HOme";
+import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
