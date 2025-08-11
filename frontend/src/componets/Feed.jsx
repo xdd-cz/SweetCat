@@ -109,129 +109,130 @@ const Feed = () => {
         </button>
       </div>
 
-      {posts.map((x) => {
-        const isLiked = userLikedPosts.has(x._id);
-        const userInfo = usersInfo[x.user];
+      {[...posts]
+        .sort((a, b) => {
+          const dateA = a.date ? new Date(a.date) : 0;
+          const dateB = b.date ? new Date(b.date) : 0;
+          return dateB - dateA; // newest first
+        })
+        .map((x) => {
+          const isLiked = userLikedPosts.has(x._id);
+          const userInfo = usersInfo[x.user];
 
-        const userImgSrc = userInfo?.image
-          ? `${import.meta.env.VITE_URL}${userInfo.image}`
-          : `https://placehold.co/50x50?text=No+Img`;
+          const userImgSrc = userInfo?.image
+            ? `${import.meta.env.VITE_URL}${userInfo.image}`
+            : `https://placehold.co/50x50?text=No+Img`;
 
-        return (
-          <div className="post-card border rounded p-3 mb-4" key={x._id}>
-            <div className="post-header d-flex align-items-center mb-2">
+          return (
+            <div className="post-card border rounded p-3 mb-4" key={x._id}>
+              <div className="post-header d-flex align-items-center mb-2">
+                <img
+                  src={userImgSrc}
+                  alt={userInfo?.name || "User"}
+                  className="rounded-circle me-2 pfp"
+                />
+                <h5 className="mb-0">
+                  <Link
+                    to={`/userprofile/${x.user}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {x.name}
+                  </Link>
+                </h5>
+              </div>
+
               <img
-                src={userImgSrc}
-                alt={userInfo?.name || "User"}
-                className="rounded-circle me-2 pfp"
+                src={
+                  x.image?.[0]
+                    ? `${import.meta.env.VITE_URL}/uploads/${x.image[0]}`
+                    : `https://placehold.co/600x100?text=${x.title}`
+                }
+                alt={x.title}
+                className="w-100 mb-3 rounded"
               />
-              <h5 className="mb-0">
-                <Link
-                  to={`/userprofile/${x.user}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {x.name}
-                </Link>
-              </h5>
-            </div>
 
-            <img
-              src={
-                x.image?.[0]
-                  ? `${import.meta.env.VITE_URL}/uploads/${x.image[0]}`
-                  : `https://placehold.co/600x100?text=${x.title}`
-              }
-              alt={x.title}
-              className="w-100 mb-3 rounded"
-            />
-
-            <div className="post-disc">
-              {editMode === x._id ? (
-                <>
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                  />
-                  <textarea
-                    className="form-control mb-2"
-                    value={editSub}
-                    onChange={(e) => setEditSub(e.target.value)}
-                  />
-                  <button
-                    className="btn btn-primary btn-sm me-2"
-                    onClick={() => handleSave(x._id)}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => setEditMode(null)}
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <>
-                  <h4>{x.title}</h4>
-                  <small className="text-muted">
-                    {x.date
-                      ? new Date(x.date).toLocaleString()
-                      : "Unknown date"}
-                  </small>
-                  <p className="mt-2">{x.sub}</p>
-                </>
-              )}
-            </div>
-
-            <div className="reaction d-flex align-items-center mt-2">
-              <button
-                onClick={() => handleLike(x._id)}
-                disabled={likeLoading === x._id}
-                aria-label={isLiked ? "Unlike post" : "Like post"}
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  cursor: "pointer",
-                  padding: 0,
-                  marginRight: "8px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {isLiked ? (
-                  <FaHeart size={20} color="#dc3545" />
+              <div className="post-disc">
+                {editMode === x._id ? (
+                  <>
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                    />
+                    <textarea
+                      className="form-control mb-2"
+                      value={editSub}
+                      onChange={(e) => setEditSub(e.target.value)}
+                    />
+                    <button
+                      className="btn btn-primary btn-sm me-2"
+                      onClick={() => handleSave(x._id)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => setEditMode(null)}
+                    >
+                      Cancel
+                    </button>
+                  </>
                 ) : (
-                  <FaRegHeart size={20} color="#dc3545" />
+                  <>
+                    <h4>{x.title}</h4>
+                    <small className="text-muted">
+                      {x.date
+                        ? new Date(x.date).toLocaleString()
+                        : "Unknown date"}
+                    </small>
+                    <p className="mt-2">{x.sub}</p>
+                  </>
                 )}
-              </button>
+              </div>
 
-              <p className="mb-0 me-3">{x.like || 0}</p>
+              <div className="reaction d-flex align-items-center mt-2">
+                <button
+                  onClick={() => handleLike(x._id)}
+                  disabled={likeLoading === x._id}
+                  aria-label={isLiked ? "Unlike post" : "Like post"}
+                  style={{
+                    border: "none",
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                    padding: 0,
+                    marginRight: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {isLiked ? (
+                    <FaHeart size={20} color="#dc3545" />
+                  ) : (
+                    <FaRegHeart size={20} color="#dc3545" />
+                  )}
+                </button>
 
-              {/* <button className="btn btn-outline-secondary me-2">
-                <FaComment size={20} />
-              </button>
-              <p className="mb-0">{x.comments || 0}</p> */}
+                <p className="mb-0 me-3">{x.like || 0}</p>
+              </div>
+
+              <div className="post-actions mt-3">
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => handleEditClick(x)}
+                >
+                  <FaEdit /> Edit
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(x._id)}
+                >
+                  <FaTrash /> Delete
+                </button>
+              </div>
             </div>
-
-            <div className="post-actions mt-3">
-              <button
-                className="btn btn-warning btn-sm me-2"
-                onClick={() => handleEditClick(x)}
-              >
-                <FaEdit /> Edit
-              </button>
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => handleDelete(x._id)}
-              >
-                <FaTrash /> Delete
-              </button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
 
       <UploadPostModal
         show={showModal}
