@@ -8,7 +8,11 @@ const path = require("path");
 const fs = require("fs");
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: "https://the-sweet-cat.vercel.app", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 db();
 
 const port = process.env.PORT
